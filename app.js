@@ -126,9 +126,9 @@ require('./config/auth')(passport)
 
     app.use('/admin',admin)
     app.use('/usuarios', usuarios)
-EROKU
+
 // PORTA 
-const PORT = 8000
+const PORT = 8080
 app.listen(PORT,function(){
     console.log('Servido rodando!')
 })
