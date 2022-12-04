@@ -52,7 +52,7 @@ require('./config/auth')(passport)
 
     const DB_USER = 'derrickpereira1998'
     const DB_PASSWORD = encodeURIComponent('videogame')
-
+/*
     mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@derrick.kuoqczt.mongodb.net/teste?retryWrites=true&w=majority`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -63,7 +63,7 @@ require('./config/auth')(passport)
     .catch((err) => {
         console.log("Erro ao conectar ao Mongo: " + err);
     });
-
+*/
 //PUBLIC
     app.use(express.static(path.join(__dirname,'public')))
     //__dirname PEGA O CAMINHO ABSOLUTO DA PASTA PUBLIC
