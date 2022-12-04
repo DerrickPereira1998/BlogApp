@@ -128,7 +128,7 @@ require('./config/auth')(passport)
     app.use('/usuarios', usuarios)
 
 // PORTA 
-const PORT = 8080
-app.listen(PORT,function(){
+const PORT = 8000
+app.listen(PORT,'0.0.0.0',function(){
     console.log('Servido rodando!')
 })
