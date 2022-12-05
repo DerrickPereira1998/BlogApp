@@ -12,7 +12,7 @@ const Postagem = mongoose.model('postagens')
 require('./models/Categoria')
 const Categoria = mongoose.model('categorias')
 const usuarios = require('./routes/usuario')
-const passport = require('passport')
+const passport = require('passport')//UTILIZADO PARA AUTENTICAÇÃO DE USUARIOS
 require('./config/auth')(passport)
 
 //CONFIGURAÇÕES

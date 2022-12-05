@@ -18,5 +18,14 @@
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DerrickPereira1998/BlogApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DerrickPereira1998/BlogApp/issues"
+  },
+  "homepage": "https://github.com/DerrickPereira1998/BlogApp#readme",
   "description": ""
 }
