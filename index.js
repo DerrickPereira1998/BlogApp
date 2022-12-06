@@ -14,6 +14,7 @@ const Categoria = mongoose.model('categorias')
 const usuarios = require('./routes/usuario')
 const passport = require('passport')//UTILIZADO PARA AUTENTICAÇÃO DE USUARIOS
 require('./config/auth')(passport)
+const db = require("./config/db") 
 
 //CONFIGURAÇÕES
     //SESSION
@@ -50,10 +51,7 @@ require('./config/auth')(passport)
 //MONGOOSE
     mongoose.Promise = global.Promise;
 
-    const DB_USER = 'derrickpereira1998'
-    const DB_PASSWORD = encodeURIComponent('videogame')
-/*
-    mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@derrick.kuoqczt.mongodb.net/teste?retryWrites=true&w=majority`, {
+    mongoose.connect(db.mongoURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -63,7 +61,7 @@ require('./config/auth')(passport)
     .catch((err) => {
         console.log("Erro ao conectar ao Mongo: " + err);
     });
-*/
+
 //PUBLIC
     app.use(express.static(path.join(__dirname,'public')))
     //__dirname PEGA O CAMINHO ABSOLUTO DA PASTA PUBLIC
@@ -128,7 +126,7 @@ require('./config/auth')(passport)
     app.use('/usuarios', usuarios)
 
 // PORTA 
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 app.listen(PORT,'0.0.0.0',function(){
     console.log('Servido rodando!')
 })
