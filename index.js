@@ -14,7 +14,7 @@ const Categoria = mongoose.model('categorias')
 const usuarios = require('./routes/usuario')
 const passport = require('passport')//UTILIZADO PARA AUTENTICAÇÃO DE USUARIOS
 require('./config/auth')(passport)
-const db = require("./config/db") 
+//const db = require("./config/db") //DATABASE CONFIGURATIONS
 
 //CONFIGURAÇÕES
     //SESSION
@@ -50,17 +50,35 @@ const db = require("./config/db")
 
 //MONGOOSE
     mongoose.Promise = global.Promise;
-
-    mongoose.connect(db.mongoURI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => {
-        console.log("MongoDB conectado!");
-    })
-    .catch((err) => {
-        console.log("Erro ao conectar ao Mongo: " + err);
-    });
+    if(process.env.NODE_ENV == "production"){
+        const DB_USER = 'derrickpereira1998'
+        const DB_PASSWORD = encodeURIComponent('videogame')
+        mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@derrick.kuoqczt.mongodb.net/teste?retryWrites=true&w=majority`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+        .then(() => {
+            console.log("MongoDB conectado!");
+        })
+        .catch((err) => {
+            console.log("Erro ao conectar ao Mongo: " + err);
+        });
+    }
+    else{
+        const DB_USER = 'derrickpereira1998'
+        const DB_PASSWORD = encodeURIComponent('videogame')
+        mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@derrick.kuoqczt.mongodb.net/teste?retryWrites=true&w=majority`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+        .then(() => {
+            console.log("MongoDB conectado!");
+        })
+        .catch((erro) => {
+            console.log("Erro ao conectar ao Mongo: " + erro);
+        });
+    }
+    
 
 //PUBLIC
     app.use(express.static(path.join(__dirname,'public')))
