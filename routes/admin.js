@@ -5,18 +5,14 @@ require('../models/Categoria.js')
 const Categoria = mongoose.model('categorias')
 require('../models/Postagem.js')
 const Postagem = mongoose.model('postagens')
-const {eAdmin} = require('../helpers/eAdmin.js')
+const {eAdmin} = require('../helpers/eAdmin.js') //COLOQUE eAdmin apos uma rota para requerir ser admin
 
 router.get('/',(req,res) => {
     res.render('admin/index')
 })
 
-router.get('/posts',(req,res) => {
-    res.send('Pagina de posts')
-})
-
 //CATEGORIAS
-router.get('/categorias', eAdmin, (req, res) => {
+router.get('/categorias', (req, res) => {
     Categoria.find().sort({date: 'desc'}).lean().then((categorias) => {
         res.render('admin/categorias', {categorias: categorias})
     }).catch((erro) => {
@@ -25,7 +21,7 @@ router.get('/categorias', eAdmin, (req, res) => {
     })
 })
 
-router.get('/categorias/add',(req, res) => {
+router.get('/add',(req, res) => {
     res.render('admin/addcategorias')
 })
 

@@ -1,11 +1,20 @@
-<h1>{{categoria.nome}}</h1>
+<h1>Postagens da categoria {{categoria.nome}}</h1>
+<style>
+    #hyperlink:link{
+        text-decoration: none;
+    }
+    #hyperlink:hover {
+        background-color: transparent;
+        text-decoration: underline;
+    }
+</style>
+
 
 {{#each postagens}}
 <div class="card mt-2">
     <div class="card-body">
-        <h3>{{titulo}}</h3>
+        <a href="/postagem/{{titulo}}" id="hyperlink"><h3>{{titulo}}</h3></a>
         <p>{{descricao}}</p>
-        <a href="/postagem/{{slug}}"><button class="btn btn-success mt-2">Leia mais</button></a>
         <hr>
         <small>{{data}}</small>
     </div>

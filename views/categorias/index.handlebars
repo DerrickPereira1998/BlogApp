@@ -1,9 +1,20 @@
 <h2>Categorias: </h2>
 
+<style>
+    a:link{
+        text-decoration: none;
+    }
+    a:hover {
+        background-color: transparent;
+        text-decoration: underline;
+    }
+</style>
+<a href="/addcategorias"><button class="btn btn-success">Nova categoria</button></a>
+
 {{#each categorias}}
 <div class="card mt-2">
     <div class="card-body">
-        <a href="/categorias/{{slug}}"><h1>{{nome}}</h1></a>
+        <a href="/categorias/{{nome}}" id="a"><h1>{{nome}}</h1></a>
         <hr>
         <small>Data de publicação: {{date}}</small>
         <hr>

@@ -3,6 +3,7 @@ const app = express()
 const handlebars = require('express-handlebars')//pega o handlebars do tipo express
 const bodyParser = require('body-parser')
 const admin = require('./routes/admin')
+const usuarios = require('./routes/usuario')
 const path = require('path')
 const mongoose = require('mongoose')
 const session = require('express-session')
@@ -11,7 +12,6 @@ require('./models/Postagem')
 const Postagem = mongoose.model('postagens')
 require('./models/Categoria')
 const Categoria = mongoose.model('categorias')
-const usuarios = require('./routes/usuario')
 const passport = require('passport')//UTILIZADO PARA AUTENTICAÇÃO DE USUARIOS
 require('./config/auth')(passport)
 //const db = require("./config/db") //DATABASE CONFIGURATIONS
@@ -50,7 +50,7 @@ require('./config/auth')(passport)
 
 //MONGOOSE
     mongoose.Promise = global.Promise;
-    if(process.env.NODE_ENV == "production"){
+    if(process.env.NODE_ENV == "production"){ // PARA OUTROS AMBIENTES
         const DB_USER = 'derrickpereira1998'
         const DB_PASSWORD = encodeURIComponent('videogame')
         mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@derrick.kuoqczt.mongodb.net/teste?retryWrites=true&w=majority`, {
@@ -64,7 +64,7 @@ require('./config/auth')(passport)
             console.log("Erro ao conectar ao Mongo: " + err);
         });
     }
-    else{
+    else{ //PARA SERVIDOR LOCAL
         const DB_USER = 'derrickpereira1998'
         const DB_PASSWORD = encodeURIComponent('videogame')
         mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@derrick.kuoqczt.mongodb.net/teste?retryWrites=true&w=majority`, {
@@ -94,8 +94,8 @@ require('./config/auth')(passport)
         })
     })
 
-    app.get('/postagem/:slug', (req,res) => {
-        Postagem.findOne({slug: req.params.slug}).lean().then((postagem) => {
+    app.get('/postagem/:titulo', (req,res) => {
+        Postagem.findOne({titulo: req.params.titulo}).lean().then((postagem) => {
             if(postagem){
                 res.render('postagem/index', {postagem:postagem})  
             }
@@ -117,8 +117,44 @@ require('./config/auth')(passport)
         })
     })
 
-    app.get('/categorias/:slug', (req,res) => {
-        Categoria.findOne({slug: req.params.slug}).lean().then((categoria) => {
+    app.get('/addcategorias',(req, res) => {
+        res.render('categorias/addcategorias')
+    })
+
+    app.post('/novacategorias',(req,res) => {
+        //VALIDAÇÃO DE ERROS
+        var erros = []
+    
+        if(req.body.nome.length == 0 || typeof req.body.nome.length == undefined){
+            erros.push({texto: 'Nome invalido'})
+        }
+    
+        if(req.body.slug.length == 0 || typeof req.body.slug == undefined){
+            erros.push({texto: 'Slug invalido'})
+        }
+    
+        if(erros.length > 0){
+            res.render('addcategorias', {erros: erros})
+        }
+        else{
+            //CODIGO USADO PARA CRIAR NOVA INSTANCIA
+            const novaCategoria = {
+                nome: req.body.nome,
+                slug: req.body.slug
+            }
+    
+            new Categoria(novaCategoria).save().then(() => {
+                req.flash('success_msg','Categoria criada com sucesso!')
+                res.redirect('/categorias')
+            }).catch((erro) => {
+                req.flash('error_msg', 'Erro ao criar categoria')
+                res.redirect('/')
+                console.log('Erro ao cadastrar categoria: '+erro)
+            })}
+    })
+
+    app.get('/categorias/:nome', (req,res) => {
+        Categoria.findOne({nome: req.params.nome}).lean().then((categoria) => {
             if(categoria){
                 Postagem.find({categoria: categoria._id}).lean().then((postagens) => {
                     res.render('categorias/postagens', {categoria:categoria,postagens: postagens})
@@ -140,6 +176,7 @@ require('./config/auth')(passport)
         res.send('ERRO 404!')
     })
 
+    //VIEWS
     app.use('/admin',admin)
     app.use('/usuarios', usuarios)
 

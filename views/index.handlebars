@@ -1,22 +1,19 @@
 <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Bem vindo ao Blog do Node!</h1>
-        <p class="col-md-8 fs-4">Este é um blog simples, desenvolvido com Node.js + Express + MongoDB.</p>
-        <button class="btn btn-success btn-lg" type="button">Crie uma conta</button>
+        <h1 class="display-5 fw-bold">Bem vindo ao meu blog!</h1>
+        <p class="col-md-8 fs-4">Este é um blog de cadastro de postagens, desenvolvido com Node.js + Express + MongoDB.</p>
+        <a href="usuarios/registro"><button class="btn btn-success btn-lg" type="button">Crie uma conta</button></a>
       </div>
     </div>
-
-<hr>
 
 <h2>Postagens recentes:</h2>
 
 {{#each postagens}}
 <div class="card mt-2">
     <div class="card-body">
-        <h3>{{titulo}}</h3>
+        <a href="/postagem/{{titulo}}"><h3>{{titulo}}</h3></a>
         <p>{{descricao}}</p>
         <p>Categoria: {{categoria.nome}}</p>
-        <a href="/postagem/{{slug}}"><button class="btn btn-success mt-2">Leia mais</button></a>
         <hr>
         <small>{{data}}</small>
     </div>
