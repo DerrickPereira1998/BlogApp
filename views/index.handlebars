@@ -1,12 +1,19 @@
+<style>
+  #margin{
+    margin-left: 828px;
+  }
+</style>
+
 <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">Bem vindo ao meu blog!</h1>
         <p class="col-md-8 fs-4">Este é um blog de cadastro de postagens, desenvolvido com Node.js + Express + MongoDB.</p>
-        <a href="usuarios/registro"><button class="btn btn-success btn-lg" type="button">Crie uma conta</button></a>
+        <a href="usuarios/registro"><button class="btn btn-secondary btn-lg" type="button">Crie uma conta</button></a>
       </div>
     </div>
-
-<h2>Postagens recentes:</h2>
+    
+  <h2 class="column">Postagens recentes:  
+  <a id="margin" href="/addpostagem"><button class="btn btn-secondary btn-lg" type="button">Nova Postagem</button></a></h2>
 
 {{#each postagens}}
 <div class="card mt-2">
