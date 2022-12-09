@@ -26,3 +26,5 @@ passport: "^0.6.0",
 passport-local: "^1.0.0"
 
 A aplicação é iniciada pelo comando: node index.js e npm start, ela é iniciada na porta localhost:8000
+
+![image](https://user-images.githubusercontent.com/66483360/206799488-9dd75f89-b4dc-461e-b8fc-d9f8e56932ff.png)
