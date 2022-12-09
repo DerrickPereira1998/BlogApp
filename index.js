@@ -1,20 +1,25 @@
+//LIVRARIAS IMPORTADAS
 const express = require("express")//pega o express
 const app = express()
 const handlebars = require('express-handlebars')//pega o handlebars do tipo express
 const bodyParser = require('body-parser')
-const admin = require('./routes/admin')
-const usuarios = require('./routes/usuario')
-const path = require('path')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')//UTILIZADO PARA AUTENTICAÇÃO DE USUARIOS
+require('./config/auth')(passport)
+//MODELS DE BASE DE DADOS
 require('./models/Postagem')
 const Postagem = mongoose.model('postagens')
 require('./models/Categoria')
 const Categoria = mongoose.model('categorias')
-const passport = require('passport')//UTILIZADO PARA AUTENTICAÇÃO DE USUARIOS
-require('./config/auth')(passport)
-//const db = require("./config/db") //DATABASE CONFIGURATIONS
+//ROTAS IMPORTADAS
+const admin = require('./routes/admin')
+const usuarios = require('./routes/usuario')
+//OUTROS
+const path = require('path')
+const {isAuth} = require('./helpers/eAdmin.js') //COLOQUE eAdmin apos uma rota para requerir ser admin
+//const db = require("./config/db") //CONFIGURAÇÕES DE BASE DE DADOS
 
 //CONFIGURAÇÕES
     //SESSION
@@ -147,7 +152,7 @@ require('./config/auth')(passport)
         })
     })
 
-    app.get('/categorias',(req,res) => {
+    app.get('/categorias', isAuth, (req,res) => {
         Categoria.find().lean().then((categorias) =>{
             res.render('categorias/index', {categorias:categorias})
         }).catch((erro) => {
