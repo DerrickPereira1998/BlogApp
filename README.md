@@ -1,6 +1,7 @@
 # BlogApp
 
-Um projeto criado para a criação de catagorias e postagems usado para demonstrar conhecimentos de node.js, mongoDB e express.js. O projeto se encontra neste link: https://blogapp-ylzt.onrender.com/
+Um projeto criado para a criação de catagorias e postagems usado para demonstrar conhecimentos de node.js, mongoDB e express.js. 
+O projeto se encontra neste link: https://blogapp-ylzt.onrender.com/
 
 # Como utilizar
 
